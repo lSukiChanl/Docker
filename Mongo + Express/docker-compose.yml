@@ -1,0 +1,29 @@
+version: '3.5'
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=MyUsername
+      - MONGO_INITDB_ROOT_PASSWORD=MyPassword
+    volumes:
+      - ./mongo-volume:/data/db
+    ports:
+      - 27017:27017 
+  mongo-express:
+    image: mongo-express
+    container_name: mongo_express
+    restart: always
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=MyUsername
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=MyPassword
+      - ME_CONFIG_MONGODB_SERVER=mongo
+      - ME_CONFIG_OPTIONS_READONLY=true #Mantener para que express sea de solo lectura
+    ports:
+      - 8081:8081
+
+networks:
+  default:
+    name: mongodb_network
