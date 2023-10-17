@@ -1,0 +1,13 @@
+version: "3.3"
+
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: bitwarden
+    volumes:
+      - ./bitwarden:/data/
+    environment:
+      - SIGNUPS_ALLOWED=false  # Poner en True para permitir registro de usuarios
+    ports:
+      - 8422:80 
+    restart: unless-stopped
